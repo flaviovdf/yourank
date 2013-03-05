@@ -26,7 +26,7 @@ else
     mkdir $LOGSDIR
 fi
 
-PYTHONPATH=$PYTHONPATH/:$SELFDIR/src/ python -m yourank.deployer $* \
+PYTHONPATH=$PYTHONPATH/:$SELFDIR/src/ ./deployer.py $* \
     2>> $LOGSDIR/yourank.log
 
 if [ $? -eq $OK ]; then
