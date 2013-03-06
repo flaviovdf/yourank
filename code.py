@@ -12,7 +12,13 @@ import handlers
 
 import web
 
-URLS = ('/', handlers.Home)
+URLS = ('/', handlers.Home,
+        '/home', handlers.Home,
+        '/new', handlers.NewEval,
+        '/continue', handlers.ContinueEval,
+        '/disclaimer', handlers.Disclaimer,
+        '/privacy', handlers.Privacy,
+        '/code', handlers.Code)
 
 APP = web.application(URLS, locals())
 if __name__ == '__main__':
