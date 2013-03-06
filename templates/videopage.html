@@ -1,0 +1,36 @@
+$var title: Which video would you share?
+$def with(pair_num, first_video_id, second_video_id)
+<h1>Video Pair $pair_num: Please watch both videos and then answer the question bellow</h1>
+<table width="85%", align="center">
+<tr>
+    <td align="center" valign="top" width="50%">
+        <b>Video 1</b>
+        <iframe width="420" height="315" 
+                src="http://www.youtube-nocookie.com/embed/$first_video_id?rel=0" 
+                frameborder="0" allowfullscreen>
+        </iframe>
+    </td>
+    <td align="center" valign="top" width="50%">
+        <b>Video 2</b>
+        <iframe width="420" height="315" 
+                src="http://www.youtube-nocookie.com/embed/$second_video_id?rel=0" 
+                frameborder="0" allowfullscreen>
+        </iframe>
+    </td>
+</tr>
+</table>
+<h1>Which one of these two videos would you send to a friend?</h1>
+<form method="post" action="">
+    <label for="choice">Please choose a video (required)</label><br/>
+    <input type="radio" name="choice" value="vid1">
+        I would send Video 1 (left)
+    </input>
+    <br/>
+    <input type="radio" name="choice" value="vid2">
+        I would send Video 2 (right)
+    </input>
+    <br/><br/>
+    <label for="message">Additional Details (optional):</label><br/>
+    <textarea name="message" rows="5" cols="80" id="message", maxlength=200></textarea>
+    <input type="submit" value="Submit">
+</form>

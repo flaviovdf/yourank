@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Welcome to the YouRank Experiment!</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css"/>
+</head>
+<body>
+    <div id="header"><table class="header">
+            <tr>
+                <td class="logo">
+                    You<font color="FF3333">Rank</font>
+                </td>
+                <td class="blurb">YouRank is a social experiment 
+                    being conducted by the Computer Science Department at
+                    Universidade Federal de Minas Gerais and the 
+                    Max Planck Institute for Software Systems. For more 
+                    information contact: <i>flaviov _at_ dcc.ufmg.br.</i>
+                </td>
+            </tr>
+    </table></div>
+    <div id="location"> 
+        <a href="/">home</a> &gt; Welcome to YouRank! You are watching Pair 1.
+    </div>
+    <div id="container">
+        <div id="sidebar">
+            rank videos:
+            <ul class="body">
+                <li><a href="/home">home</a></li>
+                <li><a href="/new">new evaluation</a></li>
+                <li><a href="/continue">continue evaluation</a></li>
+            </ul>
+            about:
+            <ul class="body">
+                <li><a href="/disclaimer">disclaimer</a></li>
+                <li><a href="/privacy">privacy issues</a></li>
+                <li><a href="/code">source code</a></li>
+            </ul>
+            external links:
+            <ul class="body">
+                <li><a href="http://www.vod.dcc.ufmg.br">VoD Lab</a></li>
+                <li><a href="http://socialnetworks.mpi-sws.org/">OSN group @ MPI</a></li>
+                <li><a href="http://www.ufmg.br/english/">UFMG</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="main"> 
+        <div id="content" class="body">
+        <h1>Video Pair 1: Please watch both videos and then answer the question bellow</h1>
+        <table width="85%", align="center">
+        <tr>
+        <td align="center" valign="top" width="50%">
+            <b>Video 1</b>
+            <iframe width="420" height="315" 
+                src="http://www.youtube-nocookie.com/embed/Q1oqJSgp_Dk?rel=0" 
+                frameborder="0" allowfullscreen>
+            </iframe>
+        </td>
+        <td align="center" valign="top" width="50%">
+            <b>Video 2</b>
+            <iframe width="420" height="315" 
+                src="http://www.youtube-nocookie.com/embed/-nb2Tu8rAHg?rel=0" 
+                frameborder="0" allowfullscreen>
+            </iframe>
+        </td>
+        </tr>
+        </table>
+        <h1>Which one of these two videos would you send to a friend?</h1>
+        <form method="post" action="">
+            <label for="choice">Please choose a video (required)</label><br/>
+            <input type="radio" name="choice" value="vid1">
+            I would send Video 1 (left)
+            </input>
+            <br/>
+            <input type="radio" name="choice" value="vid2">
+            I would send Video 2 (right)
+            </input>
+            <br/><br/>
+            <label for="message">Additional Details (optional):</label><br/>
+            <textarea name="message" rows="5" cols="80" id="message", maxlength=200></textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div id="footer"> 
+        <p><a href="https://github.com/flaviovdf/yourank">download/fork the code for this app on GitHub</a></p>
+    </div>
+</body>
+</html>

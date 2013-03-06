@@ -1,0 +1,60 @@
+$def with(content)
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Welcome to the YouRank Experiment!</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css"/>
+</head>
+<body>
+    <div id="header">
+        <table class="header">
+            <tr>
+                <td class="logo">
+                    You<font color="FF3333">Rank</font>
+                </td>
+                <td class="blurb">YouRank is a social experiment 
+                    being conducted by the Computer Science Department at
+                    Universidade Federal de Minas Gerais and the 
+                    Max Planck Institute for Software Systems. For more 
+                    information contact: <i>flaviov _at_ dcc.ufmg.br.</i>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="location"> 
+        <a href="/">home</a> &gt; 
+    $content.title
+    </div>
+    <div id="container">
+        <div id="sidebar">
+            <strong>rank videos:</strong>
+            <ul class="body">
+                <li><a href="/home">home</a></li>
+                <li><a href="/new">new evaluation</a></li>
+                <li><a href="/continue">continue evaluation</a></li>
+            </ul>
+            <strong>about:</strong>
+            <ul class="body">
+                <li><a href="/disclaimer">disclaimer</a></li>
+                <li><a href="/privacy">privacy issues</a></li>
+                <li><a href="/code">source code</a></li>
+            </ul>
+            <strong>external links:</strong>
+            <ul class="body">
+                <li><a href="http://www.vod.dcc.ufmg.br">VoD Lab</a></li>
+                <li><a href="http://socialnetworks.mpi-sws.org/">OSN group @ MPI</a></li>
+                <li><a href="http://www.ufmg.br/english/">UFMG</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="main"> 
+        <div id="content" class="body">
+    $:content
+        </div>
+    </div>
+    <div id="footer"> 
+        <p><a href="https://github.com/flaviovdf/yourank">download/fork the code for this app on GitHub</a></p>
+    </div>
+</body>
+</html>
