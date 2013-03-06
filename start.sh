@@ -26,7 +26,7 @@ else
     mkdir $LOGSDIR
 fi
 
-PYTHONPATH=$PYTHONPATH/:$SELFDIR/ $SELFDIR/code.py $* \
+PYTHONPATH=$PYTHONPATH/:$SELFDIR/ python $SELFDIR/code.py $* \
     2>> $LOGSDIR/yourank.log
 
 if [ $? -eq $OK ]; then

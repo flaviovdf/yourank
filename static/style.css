@@ -1,3 +1,18 @@
+/* Body */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: black;
+    font-family: "Franklin Gothic Medium", Helvetica, Arial, sans-serif;
+}
+
+.body {
+    font-family: arial,helvetica,clean,sans-serif;
+    font-size: 13px;
+    line-height: 1.5em;
+}
+
 /* Base */
 a {
     color: #32a81e;
@@ -29,6 +44,7 @@ strong {
 /* Header */
 #header {
     height: 100px;
+    background-color: #eee;
 }
 
 #header .blurb {
@@ -50,20 +66,7 @@ strong {
     padding-left: 1em;
 }
 
-/* Body */
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #eee;
-    color: black;
-    font-family: "Franklin Gothic Medium", Helvetica, Arial, sans-serif;
-}
 
-.body {
-    font-family: arial,helvetica,clean,sans-serif;
-    font-size: 13px;
-    line-height: 1.5em;
-}
 
 /* Location */
 #location {
@@ -94,12 +97,12 @@ body {
 }
 
 #sidebar a {
-    color: #000;
+    color: #0174DF;
     font-weight: normal;
 }
 
 #sidebar a:hover {
-    color: #000; 
+    color: #0174DF; 
     text-decoration: underline;
 }
 

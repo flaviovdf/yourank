@@ -3,8 +3,9 @@ from __future__ import division, print_function
 
 import web
 
-RENDER = web.template.render('templates/') 
+RENDER = web.template.render('templates/', base='base') 
 
-class Home:
+class Home(object):
+
     def GET(self):
-        return "Hello, world!"
+        return RENDER.home()
