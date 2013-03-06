@@ -1,0 +1,147 @@
+/* Base */
+a {
+    color: #32a81e;
+    text-decoration: none;
+}
+
+h1,h2,h3,h4 {
+    color: #333;
+    padding: 15px 0 5px 0;
+    border-bottom: 1px solid #aaa;
+    font-weight: normal;
+}
+
+img { border: none; }
+
+pre {
+    padding: 10px 25px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    color: #272727;
+    font-size: 80%;
+}
+
+strong {
+    color: #505050;
+    font-weight: normal;
+}
+
+/* Header */
+#header {
+    height: 100px;
+}
+
+#header .blurb {
+    vertical-align: center;
+    text-align: justify;
+    padding-top: 25px;
+    padding-right: 2em;
+    width: 50%;
+}
+
+.header { width: 100%; }
+.logo {
+    font-size: 60px;
+    background-color: #eee;
+    vertical-align: bottom; 
+    font-family: "New Century Schoolbook", Times, serif;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 1em;
+}
+
+/* Body */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+    color: black;
+    font-family: "Franklin Gothic Medium", Helvetica, Arial, sans-serif;
+}
+
+.body {
+    font-family: arial,helvetica,clean,sans-serif;
+    font-size: 13px;
+    line-height: 1.5em;
+}
+
+/* Location */
+#location {
+    padding: 5px 15px;
+    background-color: #747473;
+    /*color: #ddd;*/
+    color: #fff;
+}
+
+#location a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+#location .selected, #location strong {
+    color: #49b237;
+}
+
+
+/* Sidebar */
+#sidebar {
+    float: left;
+    width: 121px;
+    padding: 20px 0 20px 30px;
+    /*background-color: #747473;*/
+    color: #000;
+    font-weight: bold;
+}
+
+#sidebar a {
+    color: #000;
+    font-weight: normal;
+}
+
+#sidebar a:hover {
+    color: #000; 
+    text-decoration: underline;
+}
+
+#sidebar h1,h2,h3,h4 {
+    margin: 0;
+}
+
+#sidebar li {
+    /*         list-style: none;*/
+    list-style-type: circle;
+}
+
+#sidebar li.selected a {
+    color: #000;
+}
+
+#sidebar ul {
+    margin: 0 0 15px;
+    padding: 0px;
+}
+
+/* Content */
+#main {
+    margin-left: 141px;
+    padding: 5px 32px 15px 32px;
+    color: black;
+}
+
+#main a {
+    color: #217214;
+}
+
+#main .login {
+    float: right;
+    font-size: 80%;
+}
+
+/* Footer */
+#footer {
+    padding: 20px 32px;
+    font-size: 80%;
+    text-align: center;
+}
+
+.cite { font-size: smaller; }
