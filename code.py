@@ -8,7 +8,7 @@ This code maps resources to handlers and starts
 the web.py application.
 '''
 
-from yourank import handlers
+import handlers
 
 import web
 
