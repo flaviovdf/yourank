@@ -1,6 +1,4 @@
-#!/usr/bin/env python
 # -*- coding: utf8
-
 from __future__ import division, print_function
 '''
 Contains the main for deploying the application.
@@ -12,7 +10,8 @@ import handlers
 
 import web
 
-URLS = ('/', handlers.Home,
+URLS = ('/(.*)/', handlers.Redirect,
+        '/', handlers.Home,
         '/home', handlers.Home,
         '/new', handlers.NewEval,
         '/continue', handlers.ContinueEval,

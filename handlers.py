@@ -5,6 +5,10 @@ import web
 
 RENDER = web.template.render('templates/', base='base') 
 
+class Redirect:
+    def GET(self, page):
+        return web.seeother('/' + page)
+
 class Home:
     def GET(self):
         return RENDER.home()
