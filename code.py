@@ -2,22 +2,22 @@
 from __future__ import division, print_function
 '''
 Contains the main for deploying the application.
-This code maps resources to handlers and starts
+This code maps resources to view and starts
 the web.py application.
 '''
 
-import handlers
+import view
 
 import web
 
-URLS = ('/(.*)/', handlers.Redirect,
-        '/', handlers.Home,
-        '/home', handlers.Home,
-        '/new', handlers.NewEval,
-        '/continue', handlers.ContinueEval,
-        '/disclaimer', handlers.Disclaimer,
-        '/privacy', handlers.Privacy,
-        '/code', handlers.Code)
+URLS = ('/(.*)/', view.Redirect,
+        '/', view.Home,
+        '/home', view.Home,
+        '/new', view.NewEval,
+        '/continue', view.ContinueEval,
+        '/disclaimer', view.Disclaimer,
+        '/privacy', view.Privacy,
+        '/code', view.Code)
 
 APP = web.application(URLS, locals())
 if __name__ == '__main__':
