@@ -6,11 +6,13 @@ can be submitted to the application. In other words,
 this is the view of the MVC pattern.
 '''
 
+from config import TEMPLATE_DIR
+
 import string
 import random
 import web
 
-RENDER = web.template.render('templates/', base='base') 
+RENDER = web.template.render(TEMPLATE_DIR, base='base') 
 
 def random_string(num_chars=10):
    '''Generates a random ascii string composed of letters and numbers'''
