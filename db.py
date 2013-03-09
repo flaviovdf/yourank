@@ -1,8 +1,7 @@
 # -*- coding: utf8
 from __future__ import division, print_function
+'''
+Code for managing the database.
+'''
 
-def create_new_database():
-    pass
-
-def drop_all():
-    pass
+from config import DB
