@@ -1,3 +1,8 @@
-$var title = 'Welcome to YouRank'
-<h1>Welcome to YouRank</h1>
-Balacobaco
+$def with(form, error=False)
+$var title = 'Continue Evaluation'
+<h1>Please insert your unique id to continue an evaluation</h1>
+$if error:
+    <p><font color="red">Last ID was wrong. Please provide a valid one</font></p>
+<form method="POST">
+    $:form.render()
+</form>

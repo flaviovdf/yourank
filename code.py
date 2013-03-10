@@ -7,7 +7,6 @@ the web.py application.
 '''
 
 import view
-
 import web
 
 URLS = ('/(.*)/', view.Redirect,
@@ -17,8 +16,9 @@ URLS = ('/(.*)/', view.Redirect,
         '/continue', view.ContinueEval,
         '/disclaimer', view.Disclaimer,
         '/privacy', view.Privacy,
-        '/code', view.Code)
+        '/code', view.Code,
+        '/videopage', view.VideoPage)
 
-APP = web.application(URLS, locals())
 if __name__ == '__main__':
-    APP.run()
+    app = web.application(URLS, globals())
+    app.run()
