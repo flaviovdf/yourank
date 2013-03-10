@@ -1,6 +1,8 @@
 CREATE TABLE eval
 (
     id INTEGER PRIMARY KEY,
+    session_id INTEGER,
+    pair_id INTEGER,
     video_id1 TEXT,
     video_id2 TEXT,
     choice INTEGER,

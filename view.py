@@ -70,14 +70,14 @@ class ContinueEval(object):
     def __init__(self):
         s = IDLEN
         self.form = web.form.Form(
-                web.form.Textarea('id', description='Unique ID',
+                web.form.Textbox('id', description='Unique ID',
                     size=s, maxlength=s, cols=s, rows=1),
                 web.form.Button('start', type='submit', 
                     html='Continue Evaluation'))
 
     def GET(self):
-        input_data = web.input()
-        if 'error' in input_data:
+        params = web.input()
+        if 'error' in params:
             return RENDER.cont(self.form(), True)
         else:
             return RENDER.cont(self.form(), False)
@@ -98,15 +98,16 @@ class VideoPage(object):
         
         params = web.input()
         id_ = int(params['id'])
+        error = 'error' in params
         
         data = control.get_video_ids(id_)
         if data:
             pair_num, video_id1, video_id2 = data
             form = web.form.Form(
-                    web.form.Radio('Which Video Would You Send to a Friend?',
-                        [('vid1', 'I would send Video 1 (left)'),
-                         ('vid2', 'I would send Video 2 (right)')],
-                    id='choice'),
+                    web.form.Radio('choice',
+                        [('1', 'I would send Video 1 (left)'),
+                         ('2', 'I would send Video 2 (right)')],
+                        description='Which Video Would You Send to a Friend?'),
                     web.form.Textarea('details', 
                         description='Please provide additional' + 
                             ' details here (optional)',
@@ -114,7 +115,7 @@ class VideoPage(object):
                     web.form.Button('done', type='submit', html='Send Evaluation'),
                     web.form.Hidden('id', value=id_))
             
-            return RENDER.videopage(pair_num, video_id1, video_id2, form)
+            return RENDER.videopage(pair_num, video_id1, video_id2, form, error)
         else:
             return RENDER.thankyou()
 
@@ -122,5 +123,14 @@ class VideoPage(object):
 
         posted_data = web.input()
         id_ = int(posted_data['id'])
-        control.increment_pair_num(id_)
-        return web.seeother('/videopage?id=%d' % id_)
+
+        if 'choice' not in posted_data: #at least one radio has to be checked
+            return web.seeother('/videopage?id=%d&error=1' % id_)
+        else:
+            choice = int(posted_data['choice'])
+            details = ''
+            if 'details' in posted_data:
+                details = posted_data['details']
+
+            control.save_results(id_, choice, details)
+            return web.seeother('/videopage?id=%d' % id_)

@@ -5,6 +5,7 @@ This module maintains the application logic. It is responsible
 for bridging the views with the database.
 '''
 
+from config import DB
 from config import IDLEN
 
 import db
@@ -41,6 +42,10 @@ def get_video_ids(session_id):
         vid1, vid2 = db.get_videos(session_id)
         return pair_number, vid1, vid2
 
-def increment_pair_num(session_id):
+def save_results(session_id, choice, details):
+    '''Saves results and increments video pair number'''
 
-    return db.update_session(session_id)
+    pair_id, id1, id2 = get_video_ids(session_id)
+    with DB.transaction():
+        db.save_choice(session_id, pair_id, id1, id2, choice, details)
+        return db.update_session(session_id)

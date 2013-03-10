@@ -51,6 +51,11 @@ def update_session(session_id):
             curr_pair=pair_number)
     return pair_number
 
+def save_choice(session_id, pair_id, id1, id2, choice, details):
+
+    return DB.insert(EVAL_DB_NAME, session_id=session_id, pair_id=pair_id, 
+            video_id1=id1, video_id2=id2, choice=choice,
+            additional=details)
 
 def get_videos(session_id):
     
