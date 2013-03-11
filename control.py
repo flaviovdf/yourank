@@ -24,6 +24,13 @@ def add_id(session_id):
 
     db.add_id(session_id)
 
+def num_pairs():
+    '''
+    Gets the total number of pair to be evaluated
+    '''
+
+    return db.num_pairs()
+
 def has_id(session_id):
     '''Tests if an id is in the databases'''
 

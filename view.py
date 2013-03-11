@@ -66,6 +66,12 @@ class NewEval(object):
         return web.seeother('/videopage?id=%d' % id_)
 
 class ContinueEval(object):
+    '''
+    Renders the continue evaluation page. Here users will be
+    required to provide their unique session id to continue
+    an evaluation. If the user supplies an invalid id an error
+    is issued.
+    '''
 
     def __init__(self):
         s = IDLEN
@@ -93,6 +99,13 @@ class ContinueEval(object):
             return web.seeother('/continue?error=1')
 
 class VideoPage(object):
+    '''
+    The actual experiment is performed on video pages. Here each user will be
+    required to evaluate a video pair and answer a form. If the answer is 
+    invalid (e.g, a required field was not set) the code issues an error.
+    Otherwise, it will save the answer and proceed to the next pair until
+    completion.
+    '''
 
     def GET(self):
         
@@ -101,8 +114,10 @@ class VideoPage(object):
         error = 'error' in params
         
         data = control.get_video_ids(id_)
-        if data:
+        if data: #If no more data, this session has evaluated all pairs
             pair_num, video_id1, video_id2 = data
+            num_pairs = control.num_pairs()
+
             form = web.form.Form(
                     web.form.Radio('choice',
                         [('1', 'I would send Video 1 (left)'),
@@ -115,7 +130,8 @@ class VideoPage(object):
                     web.form.Button('done', type='submit', html='Send Evaluation'),
                     web.form.Hidden('id', value=id_))
             
-            return RENDER.videopage(pair_num, video_id1, video_id2, form, error)
+            return RENDER.videopage(id_, pair_num, num_pairs, video_id1, 
+                    video_id2, form, error)
         else:
             return RENDER.thankyou()
 
