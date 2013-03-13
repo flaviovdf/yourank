@@ -13,6 +13,11 @@ body {
     line-height: 1.5em;
 }
 
+.radios input {
+    margin-right: 0;
+    padding-right: 50px;
+}
+
 /* Base */
 a {
     color: #0174DF;

@@ -123,21 +123,25 @@ class VideoPage(object):
                     web.form.Radio('like',
                         [('1', 'Video 1 (left)'),
                          ('2', 'Video 2 (right)')],
-                        description='Which video do you like the most?'),
-
+                        description='Which video do you like the most?',
+                        class_='radios', post='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'),
+                    
                     web.form.Radio('share',
                         [('1', 'Video 1 (left)'),
                          ('2', 'Video 2 (right)'),
                          ('3', 'Both'),
                          ('0', 'Neither')],
                         description='Which video would you share with your ' +\
-                                'friends?'),
+                                'friends?',
+                        class_='radios', post='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'),
 
                     web.form.Radio('pop',
                         [('1', 'Video 1 (left)'),
-                         ('2', 'Video 2 (right)')],
-                        description='Which video do you think will become' +\
-                                'more popular?'),
+                         ('2', 'Video 2 (right)'),
+                         ('0', 'I think they will be equally popular')],
+                        description='Which video do you think will become ' +\
+                                'more popular?',
+                        class_='radios', post='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'),
 
                     web.form.Textarea('details', 
                         description='Please provide additional' + 
