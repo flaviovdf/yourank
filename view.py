@@ -24,7 +24,8 @@ class Home(object):
     '''Renders the Home/Welcome page'''
 
     def GET(self):
-        return RENDER.home()
+        num_pairs = control.num_pairs()
+        return RENDER.home(num_pairs)
 
 class Disclaimer(object):
     '''Renders the Disclaimer page'''
@@ -119,10 +120,23 @@ class VideoPage(object):
             num_pairs = control.num_pairs()
 
             form = web.form.Form(
-                    web.form.Radio('choice',
-                        [('1', 'I would send Video 1 (left)'),
-                         ('2', 'I would send Video 2 (right)')],
-                        description='Which Video Would You Send to a Friend?'),
+                    web.form.Radio('like',
+                        [('1', 'Video 1 (left)'),
+                         ('2', 'Video 2 (right)')],
+                        description='Which video do you like the most?'),
+
+                    web.form.Radio('share',
+                        [('1', 'Video 1 (left)'),
+                         ('2', 'Video 2 (right)')],
+                        description='Which video would you share with your ' +\
+                                'friends?'),
+
+                    web.form.Radio('pop',
+                        [('1', 'Video 1 (left)'),
+                         ('2', 'Video 2 (right)')],
+                        description='Which video do you think will become' +\
+                                'more popular?'),
+
                     web.form.Textarea('details', 
                         description='Please provide additional' + 
                             ' details here (optional)',
@@ -140,13 +154,19 @@ class VideoPage(object):
         posted_data = web.input()
         id_ = int(posted_data['id'])
 
-        if 'choice' not in posted_data: #at least one radio has to be checked
+        valid = 'like' in posted_data and 'share' in posted_data \
+                and 'pop' in posted_data
+
+        if not valid: #at least one radio per question
             return web.seeother('/videopage?id=%d&error=1' % id_)
         else:
-            choice = int(posted_data['choice'])
+            like = int(posted_data['like'])
+            share = int(posted_data['share'])
+            pop = int(posted_data['pop'])
+
             details = ''
             if 'details' in posted_data:
                 details = posted_data['details']
 
-            control.save_results(id_, choice, details)
+            control.save_results(id_, like, share, pop, details)
             return web.seeother('/videopage?id=%d' % id_)

@@ -1,8 +1,14 @@
 $def with(form, error=False)
 $var title = 'Continue Evaluation'
-<h1>Please insert your unique id to continue an evaluation</h1>
+<h1>Continue evaluation</h1>
 $if error:
     <p><span style="color:red">Last ID was wrong. Please provide a valid one</span></p>
+
+<p>Thank's for returning.
+Please take some time to remember
+the instructions in the <a href="/home">home page</a>.</p>
+
+<h2>Please insert your unique id to continue an evaluation</h2>
 <form method="POST">
     $:form.render()
 </form>

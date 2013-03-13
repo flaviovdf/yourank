@@ -5,7 +5,9 @@ CREATE TABLE eval
     pair_id INTEGER,
     video_id1 TEXT,
     video_id2 TEXT,
-    choice INTEGER,
+    like_choice INTEGER,
+    share_choice INTEGER,
+    pop_choice INTEGER,
     additional TEXT
 );
 

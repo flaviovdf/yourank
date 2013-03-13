@@ -16,7 +16,12 @@ def random_id():
    '''Generates a random ascii string composed of numbers'''
 
    chars = string.digits
-   return int(''.join(random.choice(chars) for x in xrange(IDLEN)))
+   new_id = int(''.join(random.choice(chars) for x in xrange(IDLEN)))
+
+   while has_id(new_id):
+       new_id = int(''.join(random.choice(chars) for x in xrange(IDLEN)))
+
+   return new_id
 
 def add_id(session_id):
     '''Adds session id to the databases'''
@@ -49,10 +54,11 @@ def get_video_ids(session_id):
         vid1, vid2 = db.get_videos(session_id)
         return pair_number, vid1, vid2
 
-def save_results(session_id, choice, details):
+def save_results(session_id, like, share, pop, details):
     '''Saves results and increments video pair number'''
 
     pair_id, id1, id2 = get_video_ids(session_id)
     with DB.transaction():
-        db.save_choice(session_id, pair_id, id1, id2, choice, details)
+        db.save_choice(session_id, pair_id, id1, id2, like, share, pop, 
+                details)
         return db.update_session(session_id)
