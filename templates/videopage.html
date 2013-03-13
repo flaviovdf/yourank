@@ -2,7 +2,7 @@ $def with(session_id, pair_num, total, first_video_id, second_video_id, form, er
 $var title: Evaluating a Video Pair. Your unique id is $session_id (please write it down)
 <h1>Video Pair $pair_num of $total: Please watch both videos and then answer the question below</h1>
 $if error:
-    <p><font color="red">Please check one of the videos in the form!</font></p>
+    <p><span style="color:red">Please check one of the videos in the form!</span></p>
 <table width="85%", align="center">
 <tr>
     <td align="center" valign="top" width="50%">
@@ -23,7 +23,7 @@ $if error:
 </table>
 <h1>Please answer the form below</h1>
 $if error:
-    <p><font color="red">Please check one of the videos in the form!</font></p>
+    <p><span style="color:red">Please check one of the videos in the form!</span></p>
 <form method="POST">
     $:form.render()
 </form>
