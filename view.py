@@ -127,7 +127,9 @@ class VideoPage(object):
 
                     web.form.Radio('share',
                         [('1', 'Video 1 (left)'),
-                         ('2', 'Video 2 (right)')],
+                         ('2', 'Video 2 (right)'),
+                         ('3', 'Both'),
+                         ('0', 'Neither')],
                         description='Which video would you share with your ' +\
                                 'friends?'),
 
