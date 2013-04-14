@@ -10,6 +10,19 @@ requirements
    * web.py (easy_install web.py)
    * flup (easy_install flup) - only needed when using lightppd or apache
 
+how to populate database
+========================
+
+Use the create_db.py script
+
+::
+
+$ python create_db.py
+
+It will read the contents of the *pairs/video.pairs* file. In this file each
+line has to be two youtube video ids separated by whitespace. The database
+will be in sqllite3 format under the name *database.db*.
+
 how to deploy
 =============
 
