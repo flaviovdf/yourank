@@ -2,9 +2,9 @@
 # -*- coding: utf8
 from __future__ import division, print_function
 '''
-Script to create the database. This script simple uses
-the sqllite3 module to create a new empty database. Errors
-are not handled by the script and must be done manually.
+Script to create the database. This script simple uses the sqllite3 module to 
+create a new empty database. Errors are not handled by the script and must be
+done manually.
 '''
 
 from config import DATABASE_FILE

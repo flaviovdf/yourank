@@ -1,16 +1,17 @@
 # -*- coding: utf8
 from __future__ import division, print_function
 '''
-Code for managing the database. Here we maintain
-some "wrappers" for accessing the database. A lot 
-of this code is unoptimized. Due to the small scale 
-of our web experiment this should not be an issue.
+Code for managing the database. Here we maintain some "wrappers" for accessing
+the database. A lot of this code is unoptimized. Due to the small scale of our 
+web experiment this should not be an issue.
 '''
 
 from config import DB
 from config import EVAL_DB_NAME
 from config import SESSION_DB_NAME
 from config import PAIRS_DB_NAME
+
+from datetime import datetime
 
 def num_pairs():
     '''Simply counts the number of rows in the pairs database'''
@@ -21,6 +22,7 @@ def num_pairs():
     return count
 
 def has_id(session_id):
+    '''Checks if the session database already has this session id'''
 
     try:
         result = DB.select(SESSION_DB_NAME, where='id=%d' % session_id, \
@@ -31,10 +33,12 @@ def has_id(session_id):
         return False
 
 def add_id(session_id):
-    
+    '''Adds new id to the session database'''
+
     return DB.insert(SESSION_DB_NAME, id=session_id, curr_pair=1)
 
 def get_pair_number(session_id):
+    '''Get's which evaluation pair needs to be done by the given session'''
 
     result = DB.select(SESSION_DB_NAME, where='id=%d' % session_id, \
             what='curr_pair')
@@ -42,6 +46,7 @@ def get_pair_number(session_id):
     return result[0]['curr_pair']
 
 def update_session(session_id):
+    '''Increments the evaluation pair for a session'''
 
     result = DB.select(SESSION_DB_NAME, where='id=%d' % session_id, \
             what='curr_pair')
@@ -52,13 +57,15 @@ def update_session(session_id):
     return pair_number
 
 def save_choice(session_id, pair_id, id1, id2, like, share, pop, additional):
+    '''Saves an evaluation'''
 
     return DB.insert(EVAL_DB_NAME, session_id=session_id, pair_id=pair_id, 
             video_id1=id1, video_id2=id2, like_choice=like, share_choice=share,
-            pop_choice=pop, additional=additional)
+            pop_choice=pop, additional=additional, dateof=datetime.utcnow())
 
 def get_videos(session_id):
-    
+    '''Gets pairs of videos to be evaluated'''
+
     result = DB.select(SESSION_DB_NAME, where='id=%d' % session_id,
             what='curr_pair')
     pair_number = result[0]['curr_pair']

@@ -2,11 +2,15 @@ $def with(form, error=False)
 $var title = 'Continue Evaluation'
 <h1>Continue evaluation</h1>
 $if error:
-    <p><span style="color:red">Last ID was wrong. Please provide a valid one</span></p>
+    <p>
+    <span style="color:red">
+        Last ID was wrong. Please provide a valid one
+    </span>
+    </p>
 
 <p>Thank's for returning.
-Please take some time to remember
-the instructions in the <a href="/home">home page</a>.</p>
+Please take some time to remember the instructions on the next page. You can
+skip it if you already remember what is expected from you.</p>
 
 <h2>Please insert your unique id to continue an evaluation</h2>
 <form method="POST">

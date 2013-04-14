@@ -15,7 +15,18 @@ how to deploy
 
 In standalone mode just jun the code.py script or use the start.sh script
 
+::
+
+$ python code.py
+
+or
+
+::
+
+$ ./start.sh
+
 using lightppd + fastcgi
 ========================
 
-See https://wiki.ubuntu.com/Lighttpd%2BPHP and http://crosbymichael.com/webpy-server-setup.html (ignore the mysql part)
+See https://wiki.ubuntu.com/Lighttpd%2BPHP and 
+http://crosbymichael.com/webpy-server-setup.html (ignore the mysql part)

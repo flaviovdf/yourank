@@ -13,9 +13,8 @@ body {
     line-height: 1.5em;
 }
 
-.radios input {
-    margin-right: 0;
-    padding-right: 50px;
+table td {
+    border-bottom: 1px;
 }
 
 /* Base */

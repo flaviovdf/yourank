@@ -8,7 +8,8 @@ CREATE TABLE eval
     like_choice INTEGER,
     share_choice INTEGER,
     pop_choice INTEGER,
-    additional TEXT
+    additional TEXT,
+    dateof DATETIME
 );
 
 CREATE TABLE sstate

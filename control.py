@@ -1,8 +1,8 @@
 # -*- coding: utf8
 from __future__ import division, print_function
 '''
-This module maintains the application logic. It is responsible
-for bridging the views with the database.
+This module maintains the application logic. It is responsible for bridging 
+the views with the database.
 '''
 
 from config import DB
