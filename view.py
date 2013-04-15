@@ -183,8 +183,7 @@ class VideoPage(object):
         id_ = int(posted_data['id'])
 
         valid = 'like' in posted_data and 'share' in posted_data \
-                and 'pop' in posted_data and 'details' in posted_data \
-                and posted_data['details'].strip() != u''
+                and 'pop' in posted_data
 
         if not valid: #at least one radio per question
             return web.seeother('/videopage?id=%d&error=1' % id_)
