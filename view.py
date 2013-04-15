@@ -144,9 +144,9 @@ class VideoPage(object):
                     web.form.Radio('like',
                         [('1', 'Video 1 (left)'),
                          ('2', 'Video 2 (right)'),
-                         ('3', 'I liked them both equally'),
-                         ('0', 'I disliked them both equally')],
-                        description='Which video do you like the most?'),
+                         ('3', 'I liked them both'),
+                         ('0', 'I don\'t like either of them')],
+                        description='Which video did you like the most?'),
                     
                     web.form.Radio('share',
                         [('1', 'Video 1 (left)'),
@@ -165,7 +165,7 @@ class VideoPage(object):
                                 ' more popular?'),
 
                     web.form.Textarea('details', 
-                        description='If you want, provide  extra feedback' + \
+                        description='If you want, provide extra feedback' + \
                                 ' on the videos:',
                         cols=80, rows=2),
                     

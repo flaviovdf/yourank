@@ -27,8 +27,7 @@ $if error:
 </tr>
 </table>
 <h1>
-    Provide answers to the form. If you are confused, re-read the instructions.
-    <a href="/helppage?id=$session_id">Go to instructions</a>
+    Please provide answers to the form
 </h1>
 $if error:
     <p>
@@ -39,3 +38,5 @@ $if error:
 <form method="POST">
     $:form.render()
 </form>
+<p> If you are confused, <a href="/helppage?id=$session_id">go back to instructions</a>.
+You will continue from here on returning </p>
