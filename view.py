@@ -165,11 +165,14 @@ class VideoPage(object):
                                 ' more popular?'),
 
                     web.form.Textarea('details', 
-                        description='Provide some details on why did you' + \
-                                ' choose the options above:',
+                        description='If you want, provide  extra feedback' + \
+                                ' on the videos:',
                         cols=80, rows=2),
                     
                     web.form.Button('done', type='submit', html='Send Evaluation'),
+                    web.form.Button('ignore', type='submit', 
+                        html='I was unable to watch one (or both) of the videos'),
+
                     web.form.Hidden('id', value=id_))
             
             return RENDER.videopage(id_, pair_num, num_pairs, video_id1, 
@@ -180,19 +183,26 @@ class VideoPage(object):
     def POST(self):
 
         posted_data = web.input()
+        print(posted_data)
         id_ = int(posted_data['id'])
 
-        valid = 'like' in posted_data and 'share' in posted_data \
-                and 'pop' in posted_data
+        valid = ('like' in posted_data and 'share' in posted_data \
+                and 'pop' in posted_data and 'done' in posted_data) \
+                or 'ignore' in posted_data
 
         if not valid: #at least one radio per question
             return web.seeother('/videopage?id=%d&error=1' % id_)
         else:
-            like = int(posted_data['like'])
-            share = int(posted_data['share'])
-            pop = int(posted_data['pop'])
+            if 'ignore' in posted_data:
+                like = -1
+                share = -1
+                pop = -1
+            else:
+                like = int(posted_data['like'])
+                share = int(posted_data['share'])
+                pop = int(posted_data['pop'])
 
-            details = ''
+            details = u''
             if 'details' in posted_data:
                 details = posted_data['details']
 
