@@ -164,12 +164,20 @@ class VideoPage(object):
                         description='Which video do you think will become' + \
                                 ' more popular?'),
 
+                    web.form.Radio('know',
+                        [('1', 'Video 1 (left)'),
+                         ('2', 'Video 2 (right)'),
+                         ('3', 'Both'),
+                         ('0', 'Neither')],
+                        description='Did you already know one of these videos?'),
+
                     web.form.Textarea('details', 
                         description='If you want, provide extra feedback' + \
                                 ' on the videos:',
                         cols=80, rows=2),
                     
-                    web.form.Button('done', type='submit', html='Send Evaluation'),
+                    web.form.Button('done', type='submit', 
+                        html='Send Evaluation'),
                     web.form.Button('ignore', type='submit', 
                         html='I was unable to watch one (or both) of the videos'),
 
@@ -187,8 +195,8 @@ class VideoPage(object):
         id_ = int(posted_data['id'])
 
         valid = ('like' in posted_data and 'share' in posted_data \
-                and 'pop' in posted_data and 'done' in posted_data) \
-                or 'ignore' in posted_data
+                and 'pop' in posted_data and 'done' in posted_data \
+                and 'know' in posted_data) or 'ignore' in posted_data
 
         if not valid: #at least one radio per question
             return web.seeother('/videopage?id=%d&error=1' % id_)
@@ -197,10 +205,12 @@ class VideoPage(object):
                 like = -1
                 share = -1
                 pop = -1
+                know = -1
             else:
                 like = int(posted_data['like'])
                 share = int(posted_data['share'])
                 pop = int(posted_data['pop'])
+                know = int(posted_data['know'])
 
             details = u''
             if 'details' in posted_data:
