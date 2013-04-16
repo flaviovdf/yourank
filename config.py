@@ -24,5 +24,6 @@ VIDEO_PAIRS_FILE = relative_fpath_opt(os.path.join('pairs', 'video.pairs'))
 EVAL_DB_NAME = 'eval'
 SESSION_DB_NAME = 'sstate'
 PAIRS_DB_NAME = 'pairs'
+USER_DB_NAME = 'userdetails'
 
 DB = web.database(dbn='sqlite', db=DATABASE_FILE)

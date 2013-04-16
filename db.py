@@ -10,6 +10,7 @@ from config import DB
 from config import EVAL_DB_NAME
 from config import SESSION_DB_NAME
 from config import PAIRS_DB_NAME
+from config import USER_DB_NAME
 
 from datetime import datetime
 
@@ -36,6 +37,18 @@ def add_id(session_id):
     '''Adds new id to the session database'''
 
     return DB.insert(SESSION_DB_NAME, id=session_id, curr_pair=1)
+
+def has_user_id(session_id):
+    '''Checks if the user demographic database already has this session id'''
+
+    try:
+        result = DB.select(USER_DB_NAME, where='id=%d' % session_id, \
+                what='id')
+        result[0]['id']
+        return True
+    except IndexError:
+        return False
+
 
 def get_pair_number(session_id):
     '''Get's which evaluation pair needs to be done by the given session'''

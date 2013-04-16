@@ -108,7 +108,10 @@ class Privacy(object):
 class NewEval(object):
     '''
     Renders page for new evaluation, generating user id as a random string.
-    Also redirects to actual evaluation after user clicks on submit.
+    Also redirects to actual evaluation after user clicks on submit. On a new
+    evaluation the ID is added to the database. This guarantees that all other
+    pages do not have to check if id exists. The user may change the url to
+    supply invalid ids, but we do not deal with this!
     '''
 
     def GET(self):
@@ -163,7 +166,6 @@ class Help(object):
     '''Displays the help page with what is expected from the user'''
 
     def GET(self):
-
         posted_data = web.input()
         if 'id' in posted_data:
             id_ = int(posted_data['id'])
@@ -180,7 +182,10 @@ class Help(object):
     def POST(self):
         posted_data = web.input()
         id_ = int(posted_data['id'])
-        return web.seeother('/userpage?id=%d' % id_)
+        if control.has_user_id(id_):
+            return web.seeother('/videopage?id=%d' % id_)
+        else:
+          return web.seeother('/userpage?id=%d' % id_)
 
 class UserPage(object):
     '''
@@ -195,8 +200,9 @@ class UserPage(object):
         error = 'error' in params
         
         form = LeftAlignForm(
-                web.form.Dropdown('user_age',
-                    [('18', '18 or less'),
+                web.form.Dropdown('age',
+                    [('0', '--'),
+                    ('18', '18 or less'),
                     ('25', '18 to 25'),
                     ('33', '26 to 33'),
                     ('41', '34 to 41'),
@@ -211,7 +217,7 @@ class UserPage(object):
                     description='Are you a Male or a Female?'),
                 
                 web.form.Textbox('country', 
-                    description='What is your country of birth',
+                    description='Type in your country of birth:',
                     size=12, maxlength=50, cols=1, rows=1),
                 
                 MyRadio('view',
@@ -248,9 +254,27 @@ class UserPage(object):
         return RENDER.userpage(id_, form(), error)
 
     def POST(self):
+        
         posted_data = web.input()
+        valid = 'age' in posted_data and 'gender' in posted_data \
+                and 'country' in posted_data and 'view' in posted_data \
+                and 'share' in posted_data and 'shareall' in posted_data \
+                and posted_data['country'].strip() != '' \
+                and int(posted_data['age']) != 0
+
         id_ = int(posted_data['id'])
-        return web.seeother('/videopage?id=%d' % id_)
+        
+        if not valid: #at least one radio per question
+            return web.seeother('/userpage?id=%d&error=1' % id_)
+        else:
+            age = int(posted_data['age'])
+            gender = int(posted_data['gender'])
+            country = posted_data['country']
+            view = int(posted_data['view'])
+            share = int(posted_data['share'])
+            shareall = int(posted_data['shareall'])
+
+            return web.seeother('/videopage?id=%d' % id_)
 
 class VideoPage(object):
     '''

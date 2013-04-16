@@ -1,0 +1,16 @@
+$def with(session_id, form, error=False)
+$var title: User Survey
+<h1>Provide us with some details about yourself</h1>
+$if error:
+    <p>
+    <span style="color:red">Please answer every question!
+    </span>
+    </p>
+    
+<p>If you are confused, 
+<a href="/helppage?id=$session_id">go back to instructions</a>.
+You will continue from here on returning.</p>
+<form method="POST">
+$:form.render()
+</form>
+</br>

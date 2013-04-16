@@ -43,8 +43,8 @@ def has_id(session_id):
 
 def get_video_ids(session_id):
     '''
-    Gets the videos id to be evaluated, returning
-    None when the experiment is finished.
+    Gets the videos id to be evaluated, returning None when the experiment is 
+    finished.
     '''
 
     pair_number = db.get_pair_number(session_id)
@@ -53,6 +53,12 @@ def get_video_ids(session_id):
     else:
         vid1, vid2 = db.get_videos(session_id)
         return pair_number, vid1, vid2
+
+def has_user_id(session_id):
+    '''Tests if the user has already supplied demographic data. This is done
+    by checking if the database has this information'''
+
+    return db.has_user_id(session_id)
 
 def save_results(session_id, like, share, pop, details):
     '''Saves results and increments video pair number'''
