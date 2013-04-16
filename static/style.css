@@ -13,8 +13,37 @@ body {
     line-height: 1.5em;
 }
 
-table td {
-    border-bottom: 1px;
+/* Forms */
+
+td.question {
+    vertical-align: top;
+    font-weight: bold;
+    float: left;
+    width: 200px;
+}
+
+td.choice {
+    vertical-align: top;
+    float: left;
+    width: 300px;
+}
+
+tr.blank_row {
+    height: 10px !important;
+}
+
+tr.blank_row_ruler {
+    height: 10px !important;
+    border-bottom: 1px solid lightgray;
+}
+
+table.form {
+    width: 500px;
+    float: left;
+    border: none;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Base */

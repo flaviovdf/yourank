@@ -25,7 +25,7 @@ CREATE TABLE pairs
     video_id2 TEXT
 );
 
-CREATE TABLE userdetails;
+CREATE TABLE userdetails
 (
     id INTEGER PRIMARY KEY,
     age INTEGER,

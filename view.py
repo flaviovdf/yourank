@@ -8,10 +8,72 @@ application. In other words, this is the view of the MVC pattern.
 from config import IDLEN
 from config import TEMPLATE_DIR
 
+from web import net
+from web import utils
+
 import control
 import web
 
 RENDER = web.template.render(TEMPLATE_DIR, base='base') 
+
+class LeftAlignForm(web.form.Form):
+    '''
+    Overwrites the rendering of forms so that they are left aligned.
+    '''
+
+    def render(self):
+        out = ''
+        out += self.rendernote(self.note)
+        out += '<table class="form">\n'
+        
+        for input_ in self.inputs:
+            html = utils.safeunicode(input_.pre) + input_.render() + \
+                    self.rendernote(input_.note) + \
+                    utils.safeunicode(input_.post)
+
+            if input_.is_hidden():
+                out += '    <tr style="display: none;">'
+                out += '<th></th><td>%s</td></tr>\n' % (html)
+            else: 
+                out += '<tr class="blank_row"><td colspan="2"></td></tr>'
+                out += '    <tr>' #start row
+                
+                #header on the left
+                out += '    <td class="question"><label for="%s">' % \
+                        input_.id 
+                out += '%s</td>' % net.websafe(input_.description)
+
+                #content on the right
+                out += '<td><div style="float:left;">%s</div></td></tr>' % html
+                out += '<tr class="blank_row_ruler"><td colspan="2"></td></tr>'
+
+        out += '</table>'
+        return out
+
+class MyRadio(web.form.Radio):
+    '''Adds new line between choices, more readable for Radio buttons.'''
+
+    def render(self):
+        out = ''
+
+        for arg in self.args:
+            if isinstance(arg, (tuple, list)):
+                value, desc = arg
+            else:
+                value, desc = arg, arg
+
+            attrs = self.attrs.copy()
+            attrs['name'] = self.name
+            attrs['type'] = 'radio'
+            attrs['value'] = value
+
+            if self.value == value:
+                attrs['checked'] = 'checked'
+
+            out += '<input %s/> %s</br>' % (attrs, net.websafe(desc))
+
+        return out
+
 
 class Redirect(object):
     '''Redirects pages ending in '/' to the correct urls'''
@@ -118,7 +180,7 @@ class Help(object):
     def POST(self):
         posted_data = web.input()
         id_ = int(posted_data['id'])
-        return web.seeother('/videopage?id=%d' % id_)
+        return web.seeother('/userpage?id=%d' % id_)
 
 class UserPage(object):
     '''
@@ -132,23 +194,63 @@ class UserPage(object):
         id_ = int(params['id'])
         error = 'error' in params
         
-        form = web.form.Form(
+        form = LeftAlignForm(
                 web.form.Dropdown('user_age',
-                    [('1', '18 or less'),
-                    ('2', '18 to 25'),
-                    ('3', '26 to 33'),
-                    ('4', '34 to 41'),
-                    ('5', '41 to 48'),
-                    ('6', '48 to 55'),
-                    ('7', '55 or above')],
+                    [('18', '18 or less'),
+                    ('25', '18 to 25'),
+                    ('33', '26 to 33'),
+                    ('41', '34 to 41'),
+                    ('48', '41 to 48'),
+                    ('55', '48 to 55'),
+                    ('55', '55 or above')],
                     description='How old are you?'),
-                    
+                
+                MyRadio('gender',
+                    [('1', 'Male'),
+                     ('2', 'Female')],
+                    description='Are you a Male or a Female?'),
+                
+                web.form.Textbox('country', 
+                    description='What is your country of birth',
+                    size=12, maxlength=50, cols=1, rows=1),
+                
+                MyRadio('view',
+                    [('5', 'Very Often (once or more daily)'),
+                     ('4', 'Often (few times a week)'),
+                     ('3', 'Occasionally (few times a month)'),
+                     ('2', 'Rarely (few times a year)'),
+                     ('1', 'Never')],
+                    description='How often do you watch a video on YouTube?'),
+
+                MyRadio('share',
+                    [('5', 'Very Often (once or more daily)'),
+                     ('4', 'Often (few times a week)'),
+                     ('3', 'Occasionally (few times a month)'),
+                     ('2', 'Rarely (few times a year)'),
+                     ('1', 'Never')],
+                    description='How often do you share YouTube videos' + \
+                            ' with friends or colleagues?'),
+                
+                MyRadio('shareall',
+                    [('5', 'Very Often (once or more daily)'),
+                     ('4', 'Often (few times a week)'),
+                     ('3', 'Occasionally (few times a month)'),
+                     ('2', 'Rarely (few times a year)'),
+                     ('1', 'Never')],
+                    description='How often do you share any kind of online '
+                        'content with friends or colleagues?'),
+                
                 web.form.Button('done', type='submit', 
-                    html='Start Evaluations'),
+                    html='Go to Video Evaluations'),
 
                 web.form.Hidden('id', value=id_))
  
-        RENDER.userpage(id_, form, error)
+        return RENDER.userpage(id_, form(), error)
+
+    def POST(self):
+        posted_data = web.input()
+        id_ = int(posted_data['id'])
+        return web.seeother('/videopage?id=%d' % id_)
 
 class VideoPage(object):
     '''
@@ -170,15 +272,15 @@ class VideoPage(object):
             pair_num, video_id1, video_id2 = data
             num_pairs = control.num_pairs()
 
-            form = web.form.Form(
-                    web.form.Radio('like',
+            form = LeftAlignForm(
+                    MyRadio('like',
                         [('1', 'Video 1 (left)'),
                          ('2', 'Video 2 (right)'),
                          ('3', 'I liked them both'),
                          ('0', 'I don\'t like either of them')],
                         description='Which video did you like the most?'),
                     
-                    web.form.Radio('share',
+                    MyRadio('share',
                         [('1', 'Video 1 (left)'),
                          ('2', 'Video 2 (right)'),
                          ('3', 'Both'),
@@ -186,7 +288,7 @@ class VideoPage(object):
                         description='Which video would you share with your' + \
                                 ' friends?'),
 
-                    web.form.Radio('pop',
+                    MyRadio('pop',
                         [('1', 'Video 1 (left)'),
                          ('2', 'Video 2 (right)'),
                          ('3', 'I think they will be equally popular'),
@@ -194,7 +296,7 @@ class VideoPage(object):
                         description='Which video do you think will become' + \
                                 ' more popular?'),
 
-                    web.form.Radio('know',
+                    MyRadio('know',
                         [('1', 'Video 1 (left)'),
                          ('2', 'Video 2 (right)'),
                          ('3', 'Both'),
@@ -221,7 +323,6 @@ class VideoPage(object):
     def POST(self):
 
         posted_data = web.input()
-        print(posted_data)
         id_ = int(posted_data['id'])
 
         valid = ('like' in posted_data and 'share' in posted_data \
