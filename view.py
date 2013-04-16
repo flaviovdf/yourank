@@ -119,7 +119,37 @@ class Help(object):
         posted_data = web.input()
         id_ = int(posted_data['id'])
         return web.seeother('/videopage?id=%d' % id_)
-    
+
+class UserPage(object):
+    '''
+    Page with a form to gather demographic and sharing habits information
+    about the users
+    '''
+
+    def GET(self):
+
+        params = web.input()
+        id_ = int(params['id'])
+        error = 'error' in params
+        
+        form = web.form.Form(
+                web.form.Dropdown('user_age',
+                    [('1', '18 or less'),
+                    ('2', '18 to 25'),
+                    ('3', '26 to 33'),
+                    ('4', '34 to 41'),
+                    ('5', '41 to 48'),
+                    ('6', '48 to 55'),
+                    ('7', '55 or above')],
+                    description='How old are you?'),
+                    
+                web.form.Button('done', type='submit', 
+                    html='Start Evaluations'),
+
+                web.form.Hidden('id', value=id_))
+ 
+        RENDER.userpage(id_, form, error)
+
 class VideoPage(object):
     '''
     The actual experiment is performed on video pages. Here each user will be

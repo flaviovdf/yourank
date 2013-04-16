@@ -18,6 +18,7 @@ URLS = ('/(.*)/', view.Redirect,
         '/disclaimer', view.Disclaimer,
         '/privacy', view.Privacy,
         '/code', view.Code,
+        '/userdetails', view.User,
         '/videopage', view.VideoPage)
 
 if __name__ == '__main__':

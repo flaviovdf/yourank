@@ -24,3 +24,15 @@ CREATE TABLE pairs
     video_id1 TEXT,
     video_id2 TEXT
 );
+
+CREATE TABLE userdetails;
+(
+    id INTEGER PRIMARY KEY,
+    age INTEGER,
+    gender INTEGER,
+    country TEXT,
+    watch_videos INTEGER,
+    share_videos INTEGER,
+    share_content INTEGER,
+    dateof DATETIME
+);
