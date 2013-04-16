@@ -76,6 +76,13 @@ def save_choice(session_id, pair_id, id1, id2, like, share, pop, additional):
             video_id1=id1, video_id2=id2, like_choice=like, share_choice=share,
             pop_choice=pop, additional=additional, dateof=datetime.utcnow())
 
+def save_user_info(session_id, age, gender, country, view, share, share_all):
+    '''Saves user demographic data to the database'''
+
+    return DB.insert(USER_DB_NAME, id=session_id, age=age, gender=gender, 
+            country=country, watch_videos=view, share_videos=share,
+            share_content=share_all, dateof=datetime.utcnow())
+
 def get_videos(session_id):
     '''Gets pairs of videos to be evaluated'''
 

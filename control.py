@@ -60,6 +60,13 @@ def has_user_id(session_id):
 
     return db.has_user_id(session_id)
 
+def save_user_info(session_id, age, gender, country, view, share, share_all):
+    '''Saves used info to the database'''
+
+    with DB.transaction():
+        db.save_user_info(session_id, age, gender, country, view, share, 
+                share_all)
+
 def save_results(session_id, like, share, pop, details):
     '''Saves results and increments video pair number'''
 

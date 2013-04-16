@@ -274,6 +274,9 @@ class UserPage(object):
             share = int(posted_data['share'])
             shareall = int(posted_data['shareall'])
 
+            control.save_user_info(id_, age, gender, country, view, share,
+                    shareall)
+
             return web.seeother('/videopage?id=%d' % id_)
 
 class VideoPage(object):
