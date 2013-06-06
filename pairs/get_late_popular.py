@@ -42,11 +42,30 @@ def get_videos(cls, categs, ids, X, online_ids, cls_to_use, peak_time_min):
 
     return ids, categs, X
 
-cls = np.genfromtxt(ASSIGN, dtype='i')
-categs = np.genfromtxt(CATEG, usecols = [2], dtype='S10', filling_values=['-'])
-ids = np.genfromtxt(TSERIES, dtype='S11')[:, 0]
-X = np.genfromtxt(TSERIES)[:, 1:]
-online_ids = set(np.genfromtxt(ONLINE, dtype='S11'))
+def print_videos(Xi, Xj, categs_i, categs_j, ids_i, ids_j):
+    used_j = set()
+    for i in xrange(Xi.shape[0]):
+        for j in xrange(Xj.shape[0]):
+            if categs_i[i] == categs_j[j] and j not in used_j \
+                    and ids_i[i] != ids_j[j]:
+                print ids_j[i], ids_j[j]
+                used_j.add(j)
+                break
 
-late_ids, late_categs, X_late = get_videos(cls, categs, ids, X, online_ids, [1, 2], 10)
-cte_ids, cte_categs, X_cte = get_videos(cls, categs, ids, X, online_ids, [0], -1)
+def main():
+    cls = np.genfromtxt(ASSIGN, dtype='i')
+    categs = np.genfromtxt(CATEG, usecols = [2], dtype='S10')
+    ids = np.genfromtxt(TSERIES, dtype='S11')[:, 0]
+    X = np.genfromtxt(TSERIES)[:, 1:]
+    online_ids = set(np.genfromtxt(ONLINE, dtype='S11'))
+
+    late_ids, late_categs, X_late = get_videos(cls, categs, ids, X, online_ids,
+            [1, 2], 10)
+    cte_ids, cte_categs, X_cte = get_videos(cls, categs, ids, X, online_ids, 
+            [0], -1)
+
+    print_videos(X_late, X_cte, late_categs, cte_categs, late_ids, cte_ids)
+    print_videos(X_cte, X_cte, cte_categs, cte_categs, cte_ids, cte_ids)
+
+if __name__ == '__main__':
+    main()
