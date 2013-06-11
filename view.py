@@ -202,13 +202,16 @@ class UserPage(object):
         form = LeftAlignForm(
                 web.form.Dropdown('age',
                     [('0', '--'),
-                    ('18', '18 or less'),
-                    ('25', '18 to 25'),
-                    ('33', '26 to 33'),
-                    ('41', '34 to 41'),
-                    ('48', '41 to 48'),
-                    ('55', '48 to 55'),
-                    ('55', '55 or above')],
+                    ('15', '15 or less'),
+                    ('20', '16 to 20'),
+                    ('25', '21 to 25'),
+                    ('30', '26 to 30'),
+                    ('35', '31 to 35'),
+                    ('40', '36 to 40'),
+                    ('45', '41 to 45'),
+                    ('50', '46 to 50'),
+                    ('55', '41 to 55'),
+                    ('56', '56 or above')],
                     description='How old are you?'),
                 
                 MyRadio('gender',
@@ -298,6 +301,8 @@ class VideoPage(object):
         if data: #If no more data, this session has evaluated all pairs
             pair_num, video_id1, video_id2 = data
             num_pairs = control.num_pairs()
+            
+            control.save_start_eval(id_, pair_num)
 
             form = LeftAlignForm(
                     MyRadio('like',

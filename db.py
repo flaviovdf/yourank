@@ -10,6 +10,7 @@ from config import DB
 from config import EVAL_DB_NAME
 from config import SESSION_DB_NAME
 from config import PAIRS_DB_NAME
+from config import START_DB_NAME
 from config import USER_DB_NAME
 
 from datetime import datetime
@@ -82,6 +83,12 @@ def save_user_info(session_id, age, gender, country, view, share, share_all):
     return DB.insert(USER_DB_NAME, id=session_id, age=age, gender=gender, 
             country=country, watch_videos=view, share_videos=share,
             share_content=share_all, dateof=datetime.utcnow())
+
+def save_start_eval(session_id, pair_id):
+    '''Saves when an evaluation has started'''
+
+    DB.insert(START_DB_NAME,
+            session_id=session_id, pair_id=pair_id, dateof=datetime.utcnow())
 
 def get_videos(session_id):
     '''Gets pairs of videos to be evaluated'''

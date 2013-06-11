@@ -12,6 +12,14 @@ CREATE TABLE eval
     dateof DATETIME
 );
 
+CREATE TABLE pageloads
+(
+    id INTEGER PRIMARY KEY,
+    session_id INTEGER,
+    pair_id INTEGER,
+    dateof DATETIME
+);
+
 CREATE TABLE sstate
 (
     id INTEGER PRIMARY KEY,

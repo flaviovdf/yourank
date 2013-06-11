@@ -67,6 +67,12 @@ def save_user_info(session_id, age, gender, country, view, share, share_all):
         db.save_user_info(session_id, age, gender, country, view, share, 
                 share_all)
 
+def save_start_eval(session_id, pair_number):
+    '''Saves the timestamp of when a videopage is loaded'''
+
+    with DB.transaction():
+        db.save_start_eval(session_id, pair_number)
+
 def save_results(session_id, like, share, pop, details):
     '''Saves results and increments video pair number'''
 
