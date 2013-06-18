@@ -126,7 +126,6 @@ class NewEval(object):
     def POST(self):
         posted_data = web.input()
         id_ = int(posted_data['id'])
-        control.add_id(id_)
         return web.seeother('/helppage?id=%d' % id_)
 
 class ContinueEval(object):
@@ -174,8 +173,7 @@ class Help(object):
                         html='Proceed to Evaluations'),
                     web.form.Hidden('id', value=id_))
 
-            num_pairs = control.num_pairs()
-            return RENDER.helppage(id_, num_pairs, form())
+            return RENDER.helppage(id_, form())
         else:
             return web.seeother('home')
 
@@ -300,7 +298,7 @@ class VideoPage(object):
         data = control.get_video_ids(id_)
         if data: #If no more data, this session has evaluated all pairs
             pair_num, video_id1, video_id2 = data
-            num_pairs = control.num_pairs()
+            num_pairs = control.num_pairs(id_)
             
             control.save_start_eval(id_, pair_num)
 

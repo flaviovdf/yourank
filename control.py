@@ -13,28 +13,24 @@ import string
 import random
 
 def random_id():
-   '''Generates a random ascii string composed of numbers'''
+    '''Generates a random ascii string composed of numbers'''
+    
+    chars = string.digits
+    new_id = int(''.join(random.choice(chars) for x in xrange(IDLEN)))
 
-   chars = string.digits
-   new_id = int(''.join(random.choice(chars) for x in xrange(IDLEN)))
+    with DB.transaction():
+        while has_id(new_id): #TODO: We can make IDs in sequence
+            new_id = int(''.join(random.choice(chars) for x in xrange(IDLEN)))
+        db.add_id(new_id)
 
-   while has_id(new_id):
-       new_id = int(''.join(random.choice(chars) for x in xrange(IDLEN)))
+    return new_id
 
-   return new_id
-
-def add_id(session_id):
-    '''Adds session id to the databases'''
-    #TODO: treat error if already exists
-
-    db.add_id(session_id)
-
-def num_pairs():
+def num_pairs(session_id):
     '''
     Gets the total number of pair to be evaluated
     '''
 
-    return db.num_pairs()
+    return db.num_pairs(session_id)
 
 def has_id(session_id):
     '''Tests if an id is in the databases'''
@@ -48,7 +44,7 @@ def get_video_ids(session_id):
     '''
 
     pair_number = db.get_pair_number(session_id)
-    if pair_number > db.num_pairs():
+    if pair_number > db.num_pairs(session_id):
         return None
     else:
         vid1, vid2 = db.get_videos(session_id)

@@ -10,7 +10,7 @@ import web
 SELF_DIR = os.path.dirname(os.path.realpath(__file__))
 relative_fpath_opt = lambda fpath: os.path.join(SELF_DIR, fpath)
 
-# ID length
+# Session ID length
 IDLEN = 8
 
 # Files and dirs
@@ -24,6 +24,7 @@ VIDEO_PAIRS_FILE = relative_fpath_opt(os.path.join('pairs', 'video.pairs'))
 EVAL_DB_NAME = 'eval'
 SESSION_DB_NAME = 'sstate'
 PAIRS_DB_NAME = 'pairs'
+ROUND_ROBIN_DB_NAME = 'roundrobin'
 START_DB_NAME = 'pageloads'
 USER_DB_NAME = 'userdetails'
 
