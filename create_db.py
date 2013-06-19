@@ -33,8 +33,8 @@ def main():
             round_rbn, video1, video2 = line.split()
 
             round_rbn = int(round_rbn)
-            round_robin_pairs[round_rbn] += 1
             pair_num = round_robin_pairs[round_rbn]
+            round_robin_pairs[round_rbn] += 1
 
             cursor.execute('INSERT INTO %s VALUES (?, ?, ?, ?)' % \
                     PAIRS_DB_NAME, (round_rbn, pair_num, video1, video2))

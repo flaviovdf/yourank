@@ -14,16 +14,18 @@ CREATE TABLE eval
 
 CREATE TABLE pageloads
 (
+    id INTEGER,
     session_id INTEGER,
     pair_num INTEGER,
     dateof DATETIME,
-    PRIMARY KEY(session_id, pair_num)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE sstate
 (
     session_id INTEGER,
     round_rbn INTEGER,
+    num_eval INTEGER,
     curr_pair INTEGER,
     PRIMARY KEY(session_id, round_rbn)
 );

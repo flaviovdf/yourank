@@ -300,7 +300,7 @@ class VideoPage(object):
             pair_num, video_id1, video_id2 = data
             num_pairs = control.num_pairs(id_)
             
-            control.save_start_eval(id_, pair_num)
+            control.save_start_eval(id_)
 
             form = LeftAlignForm(
                     MyRadio('like',

@@ -43,12 +43,23 @@ def get_video_ids(session_id):
     finished.
     '''
 
-    pair_number = db.get_pair_number(session_id)
-    if pair_number > db.num_pairs(session_id):
+    number_evaluated = db.get_number_evaluated(session_id)
+    number_pairs = db.num_pairs(session_id)
+    if number_evaluated >= number_pairs:
         return None
     else:
-        vid1, vid2 = db.get_videos(session_id)
-        return pair_number, vid1, vid2
+        evaluated_pair_ids = db.get_evaluated(session_id)
+        all_pair_ids = set(range(number_pairs))
+        
+        remaining = [pair_id for pair_id in 
+                all_pair_ids.difference(evaluated_pair_ids)]
+        
+        random.shuffle(remaining)
+        next_pair = remaining[0]
+        
+        db.save_current_pair(session_id, next_pair)
+        vid1, vid2 = db.get_videos(session_id, next_pair)
+        return number_evaluated + 1, vid1, vid2
 
 def has_user_id(session_id):
     '''Tests if the user has already supplied demographic data. This is done
@@ -63,17 +74,20 @@ def save_user_info(session_id, age, gender, country, view, share, share_all):
         db.save_user_info(session_id, age, gender, country, view, share, 
                 share_all)
 
-def save_start_eval(session_id, pair_number):
+def save_start_eval(session_id):
     '''Saves the timestamp of when a videopage is loaded'''
 
     with DB.transaction():
+        pair_number = db.get_curr_pair(session_id)
         db.save_start_eval(session_id, pair_number)
 
 def save_results(session_id, like, share, pop, details):
     '''Saves results and increments video pair number'''
-
-    pair_id, id1, id2 = get_video_ids(session_id)
+    
     with DB.transaction():
-        db.save_choice(session_id, pair_id, id1, id2, like, share, pop, 
+        pair_number = db.get_curr_pair(session_id)
+        id1, id2 = db.get_videos(session_id, pair_number)
+
+        db.save_choice(session_id, pair_number, id1, id2, like, share, pop, 
                 details)
         return db.update_session(session_id)

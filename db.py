@@ -44,8 +44,8 @@ def has_id(session_id):
 
     try:
         result = DB.select(SESSION_DB_NAME, 
-                where='session_id=%d' % session_id, what='curr_pair')
-        result[0]['curr_pair']
+                where='session_id=%d' % session_id, what='num_eval')
+        result[0]['num_eval']
         return True
     except IndexError:
         return False
@@ -58,7 +58,7 @@ def add_id(session_id):
     total_rounds = round_select['total_rounds']
 
     DB.insert(SESSION_DB_NAME, session_id=session_id, round_rbn=curr_round, 
-            curr_pair=1)
+            num_eval=0)
 
     next_round = (curr_round + 1) % total_rounds 
     return DB.update(ROUND_ROBIN_DB_NAME, 
@@ -75,24 +75,24 @@ def has_user_id(session_id):
     except IndexError:
         return False
 
-def get_pair_number(session_id):
-    '''Get's which evaluation pair needs to be done by the given session'''
+def get_number_evaluated(session_id):
+    '''Get's number of pairs evaluted for a given session'''
 
     result = DB.select(SESSION_DB_NAME, where='session_id=%d' % session_id, \
-            what='curr_pair')
+            what='num_eval')
 
-    return result[0]['curr_pair']
+    return result[0]['num_eval']
 
 def update_session(session_id):
     '''Increments the evaluation pair for a session'''
 
     result = DB.select(SESSION_DB_NAME, where='session_id=%d' % session_id, \
-            what='curr_pair')
-    pair_number = result[0]['curr_pair'] + 1
+            what='num_eval')
+    num_eval = result[0]['num_eval'] + 1
 
     DB.update(SESSION_DB_NAME, where='session_id=%d' % session_id,
-            curr_pair=pair_number)
-    return pair_number
+            num_eval=num_eval)
+    return num_eval
 
 def save_choice(session_id, pair_id, id1, id2, like, share, pop, additional):
     '''Saves an evaluation'''
@@ -112,17 +112,41 @@ def save_user_info(session_id, age, gender, country, view, share, share_all):
 def save_start_eval(session_id, pair_id):
     '''Saves when an evaluation has started'''
 
-    DB.insert(START_DB_NAME,
+    return DB.insert(START_DB_NAME,
             session_id=session_id, pair_num=pair_id, dateof=datetime.utcnow())
 
-def get_videos(session_id):
-    '''Gets pairs of videos to be evaluated'''
+def get_evaluated(session_id):
+    '''Gets videos which were evaluated to be evaluated'''
+    
+    results = DB.select(EVAL_DB_NAME, where='session_id=%d' % session_id,
+            what='pair_num')
 
-    result = DB.select(SESSION_DB_NAME, where='session_id=%d' % session_id,
-            what='curr_pair,round_rbn')[0]
+    evaluated = set()
+    for result in results:
+        evaluated.add(result['pair_num'])
 
-    round_num = result['round_rbn']
-    pair_number = result['curr_pair']
+    return evaluated
+
+def save_current_pair(session_id, pair_number):
+    '''Saves the current pair being evaluated'''
+
+    return DB.update(SESSION_DB_NAME, where='session_id=%d' % session_id,
+            curr_pair=pair_number)
+
+def get_curr_pair(session_id):
+    '''Gets the current pair being evaluated'''
+
+    result = DB.select(SESSION_DB_NAME, 
+            where='session_id=%d' % session_id, what='curr_pair')
+
+    return result[0]['curr_pair']
+
+def get_videos(session_id, pair_number):
+    '''Gets the pair id for the round of the given user (session id)'''
+
+    result = DB.select(SESSION_DB_NAME, 
+            where='session_id=%d' % session_id, what='round_rbn')
+    round_num = result[0]['round_rbn']
 
     result = DB.select(PAIRS_DB_NAME,
             where='pair_num=%d AND round_rbn=%d' % (pair_number, round_num),
