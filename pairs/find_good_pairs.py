@@ -9,7 +9,7 @@ import numpy as np
 MIN_VIEWS = 2000 #videos must have at least this many views
 MIN_PEAK = .1 #late peak videos should have a peak of at least 10%
 MIN_TIME = 10 #late is 10 days
-MIN_REP = 5 #we want at least 5 different pairings per video
+MIN_REP = 3 #we want at least 5 different pairings per video
 FOLDS = 10
 
 #Loading data
