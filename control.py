@@ -54,12 +54,15 @@ def get_video_ids(session_id):
         remaining = [pair_id for pair_id in 
                 all_pair_ids.difference(evaluated_pair_ids)]
         
-        random.shuffle(remaining)
-        next_pair = remaining[0]
-        
-        db.save_current_pair(session_id, next_pair)
-        vid1, vid2 = db.get_videos(session_id, next_pair)
-        return number_evaluated + 1, vid1, vid2
+        if len(remaining) == 0:
+            return None
+        else:
+            random.shuffle(remaining)
+            next_pair = remaining[0]
+
+            db.save_current_pair(session_id, next_pair)
+            vid1, vid2 = db.get_videos(session_id, next_pair)
+            return number_evaluated + 1, vid1, vid2
 
 def has_user_id(session_id):
     '''Tests if the user has already supplied demographic data. This is done
