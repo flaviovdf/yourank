@@ -295,7 +295,11 @@ class VideoPage(object):
         id_ = int(params['id'])
         error = 'error' in params
         
-        data = control.get_video_ids(id_)
+        if not error:
+            data = control.get_video_ids(id_)
+        else:
+            data = control.get_current_pair(id_)
+
         if data: #If no more data, this session has evaluated all pairs
             pair_num, video_id1, video_id2 = data
             num_pairs = control.num_pairs(id_)

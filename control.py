@@ -61,6 +61,15 @@ def get_video_ids(session_id):
         vid1, vid2 = db.get_videos(session_id, next_pair)
         return number_evaluated + 1, vid1, vid2
 
+def get_current_pair(session_id):
+    '''Get's the pair currently being evaluated'''
+
+    number_evaluated = db.get_number_evaluated(session_id)
+    pair_number = db.get_curr_pair(session_id)
+    vid1, vid2 = db.get_videos(session_id, pair_number)
+
+    return number_evaluated + 1, vid1, vid2
+
 def has_user_id(session_id):
     '''Tests if the user has already supplied demographic data. This is done
     by checking if the database has this information'''
