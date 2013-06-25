@@ -327,8 +327,7 @@ class VideoPage(object):
                          ('2', 'Video 2 (right)'),
                          ('3', 'I think they will be equally popular'),
                          ('0', 'I don\'t know')],
-                        description='Which video do you predict will be more' + \ 
-                                ' popular on YouTube?'),
+                        description='Which video do you predict will be more popular on YouTube?'),
 
                     MyRadio('know',
                         [('1', 'Video 1 (left)'),
