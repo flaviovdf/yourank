@@ -218,7 +218,7 @@ class UserPage(object):
                     description='Are you a Male or a Female?'),
                 
                 web.form.Textbox('country', 
-                    description='Type in your country of birth:',
+                    description='Type the country you live in:',
                     size=12, maxlength=50, cols=1, rows=1),
                 
                 MyRadio('view',
@@ -312,7 +312,7 @@ class VideoPage(object):
                          ('2', 'Video 2 (right)'),
                          ('3', 'I liked them both'),
                          ('0', 'I don\'t like either of them')],
-                        description='Which video did you like the most?'),
+                        description='Which video did you like more?'),
                     
                     MyRadio('share',
                         [('1', 'Video 1 (left)'),
@@ -327,8 +327,8 @@ class VideoPage(object):
                          ('2', 'Video 2 (right)'),
                          ('3', 'I think they will be equally popular'),
                          ('0', 'I don\'t know')],
-                        description='Which video do you think will become' + \
-                                ' more popular?'),
+                        description='Which video do you predict will be more' + \ 
+                                ' popular on YouTube?'),
 
                     MyRadio('know',
                         [('1', 'Video 1 (left)'),
