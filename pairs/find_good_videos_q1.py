@@ -5,6 +5,7 @@ from random import shuffle
 from collections import defaultdict
 
 import numpy as np
+import urllib2
 
 MIN_VIEWS = 5000 #videos must have at least this many views
 FOLDS = 10
@@ -30,11 +31,29 @@ with open('possible.pairs') as pairs_file:
             possible.append((vid1, vid2))
 
 shuffle(possible)
-possible = possible[:PER_FOLD * FOLDS]
+total_vids = PER_FOLD * FOLDS
 
+base = "http://gdata.youtube.com/feeds/api/videos/%s?v=2"
 curr_fold = 0
+num_pairs = 0
+used = set()
 for pair in possible:
     vid1, vid2 = pair
+    
+    if vid1 in used or vid2 in used:
+        continue
 
-    print curr_fold, vid1, vid2
-    curr_fold = (curr_fold + 1) % FOLDS
+    try:
+        urllib2.urlopen(base % vid1)
+        urllib2.urlopen(base % vid2)
+        
+        print curr_fold, vid1, vid2
+
+        curr_fold = (curr_fold + 1) % FOLDS
+        num_pairs += 1
+        if num_pairs == total_vids:
+            break
+        used.add(vid1)
+        used.add(vid2)
+    except Exception as e:
+        continue
