@@ -93,7 +93,7 @@ def save_start_eval(session_id):
         pair_number = db.get_curr_pair(session_id)
         db.save_start_eval(session_id, pair_number)
 
-def save_results(session_id, like, share, pop, details):
+def save_results(session_id, like, share, pop, know, details):
     '''Saves results and increments video pair number'''
     
     with DB.transaction():
@@ -101,5 +101,5 @@ def save_results(session_id, like, share, pop, details):
         id1, id2 = db.get_videos(session_id, pair_number)
 
         db.save_choice(session_id, pair_number, id1, id2, like, share, pop, 
-                details)
+                know, details)
         return db.update_session(session_id)

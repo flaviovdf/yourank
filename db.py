@@ -94,12 +94,14 @@ def update_session(session_id):
             num_eval=num_eval)
     return num_eval
 
-def save_choice(session_id, pair_id, id1, id2, like, share, pop, additional):
+def save_choice(session_id, pair_id, id1, id2, like, share, pop, know, 
+        additional):
     '''Saves an evaluation'''
 
     return DB.insert(EVAL_DB_NAME, session_id=session_id, pair_num=pair_id, 
             video_id1=id1, video_id2=id2, like_choice=like, share_choice=share,
-            pop_choice=pop, additional=additional, dateof=datetime.utcnow())
+            pop_choice=pop, additional=additional, know=know,
+            dateof=datetime.utcnow())
 
 def save_user_info(session_id, age, gender, country, view, share, share_all):
     '''Saves user demographic data to the database'''

@@ -7,6 +7,7 @@ CREATE TABLE eval
     like_choice INTEGER,
     share_choice INTEGER,
     pop_choice INTEGER,
+    know INTEGER,
     additional TEXT,
     dateof DATETIME,
     PRIMARY KEY(session_id, pair_num)

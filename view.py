@@ -380,5 +380,5 @@ class VideoPage(object):
             if 'details' in posted_data:
                 details = posted_data['details']
 
-            control.save_results(id_, like, share, pop, details)
+            control.save_results(id_, like, share, pop, know, details)
             return web.seeother('/videopage?id=%d' % id_)
