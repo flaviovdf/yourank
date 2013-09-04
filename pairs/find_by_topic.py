@@ -21,7 +21,6 @@ import sys
 DEVELOPER_KEY = 'AIzaSyDi6lWtWCOzHVA6RgC15IlvyzPAHTVLsgo'
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
-YOUTUBE_SCOPE = 'https://www.googleapis.com/auth/youtube'
 FREEBASE_URL = 'https://www.googleapis.com/freebase/v1/search?filter=(all name:"%s")'
 
 def youtube_service():
@@ -44,7 +43,7 @@ def get_ids(youtube, topic, month):
         m = '%s' % month
     else:
         m = '0%s' % month
-
+    
     pageToken = ''
     ids = set()
     while pageToken is not None:
@@ -52,11 +51,12 @@ def get_ids(youtube, topic, month):
                 order='relevance', 
                 publishedAfter='2012-%s-01T00:00:00Z' % m,
                 publishedBefore='2012-%s-28T23:59:59Z' % m, 
-                videoEmbeddable='true', videoSyndicated='true', topicId=topic, 
+                videoEmbeddable='true', videoSyndicated='true', 
+                topicId=topic, 
                 maxResults=50, pageToken=pageToken, regionCode='US', 
                 safeSearch='strict', videoDuration='medium', 
                 type='video', part='id')
-
+        
         results = search.execute()
         for video in results['items']:
             ids.add(video['id']['videoId'])
@@ -77,7 +77,7 @@ def get_pop_duration(youtube, video):
 
 def main():
     #topics = ['/m/09p14', '/m/05f4p', '/m/01hmnh', '/m/05gwr', '/m/01664_', '/m/018jz']
-    topic = '/m/018jz'
+    topic = '/m/0mdxd'
     num_per_group = 3
     candidates = []
 
