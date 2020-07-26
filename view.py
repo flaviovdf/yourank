@@ -208,7 +208,7 @@ class UserPage(object):
                     ('40', '36 to 40'),
                     ('45', '41 to 45'),
                     ('50', '46 to 50'),
-                    ('55', '41 to 55'),
+                    ('55', '51 to 55'),
                     ('56', '56 or above')],
                     description='How old are you?'),
                 
